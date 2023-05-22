@@ -1,0 +1,27 @@
+{
+  "name": "code-snippet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.3",
+    "bip39": "^3.1.0",
+    "bitcoinjs-lib": "^6.1.0",
+    "blockchain.info": "^2.12.1",
+    "ethereumjs-tx": "^2.1.2",
+    "ethers": "^6.3.0",
+    "web3": "^1.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.39.0",
+    "jest": "^29.5.0"
+  },
+  "scripts": {
+    "lint": "eslint **/*.js",
+    "lint:fix": "eslint --fix --config .eslintrc.json **/*.js",
+    "tests": "npx jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
