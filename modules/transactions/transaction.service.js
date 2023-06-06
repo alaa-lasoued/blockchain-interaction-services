@@ -2,8 +2,8 @@ const Web3 = require('web3');
 const bitcoin = require('bitcoinjs-lib');
 const blockchainInfo = require('blockchain.info');
 
-const { networks } = require('../config');
-const { abi } = require('../ABI');
+const { networks } = require('../../config');
+const { abi } = require('../../ABI');
 
 // handle sending BTC 
 module.exports.sendBTCTransaction = async (networkType, fromAddress, privateKey, toAddress, amount) => {

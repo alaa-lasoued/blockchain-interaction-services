@@ -1,6 +1,6 @@
-const { createWallet } = require('../wallet/createWallet');
-const { sendTransaction } = require('../transactions/transaction');
-const { getBalance } = require('../wallet/getBalance');
+const { createWallet } = require('./modules/wallet/wallet.service');
+const { sendTransaction } = require('./modules/transactions/transaction.service');
+const { getBalance } = require('./modules/wallet/walletBalance.service');
 
 class Blockchain {
 

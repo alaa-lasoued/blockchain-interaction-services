@@ -1,8 +1,8 @@
 const Web3 = require('web3');
 const blockchainInfo = require('blockchain.info');
 
-const { networks } = require('../config');
-const { abi } = require('../ABI');
+const { networks } = require('../../config');
+const { abi } = require('../../ABI');
 
 module.exports.getBalance = async (blockchain, networkType, publicKey, tokenAddress) => {
   if (!networks[blockchain]) {

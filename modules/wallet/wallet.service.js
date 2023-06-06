@@ -2,7 +2,7 @@
 const Web3 = require('web3');
 const bip39 = require('bip39');
 const bitcoin = require('bitcoinjs-lib');
-const { networks } = require('../config');
+const { networks } = require('../../config');
 
 // create a new Bitcoin wallet and return the private key and public key
 module.exports.createBitcoinWallet = (network) => {

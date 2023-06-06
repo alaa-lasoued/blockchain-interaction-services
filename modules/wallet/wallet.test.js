@@ -1,7 +1,7 @@
-const { getBalance } = require('./getBalance');
-const { createERC20OrBEP20Wallet, createBitcoinWallet } = require('./createWallet');
+const { getBalance } = require('./walletBalance.service');
+const { createERC20OrBEP20Wallet, createBitcoinWallet } = require('./wallet.service');
 
-const { networks } = require('../config');
+const { networks } = require('../../config');
 
 describe('createWallet', () => {
   test('should create a wallet on Binance Smart Chain Testnet', async () => {
