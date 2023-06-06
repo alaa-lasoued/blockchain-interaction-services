@@ -1,5 +1,4 @@
 const { sendBEP20ERC20Transaction } = require('./transaction');
-const { createWallet } = require('../wallet/createWallet');
 const { getBalance } = require('../wallet/getBalance');
 
 describe('sendTransaction', () => {
@@ -21,7 +20,7 @@ describe('sendTransaction', () => {
   it('should send a transaction and return a hash', async () => {
     // Send a transaction
     const network = 'binanceSmartChain';
-    const networkType = 'ropsten'; // "testnet" is invalid 
+    const networkType = 'testnet';
     const txHash = await sendBEP20ERC20Transaction(network, networkType, privateKey, publicKey, toAddress, amount,tokenAddress);
     // Verify that the transaction was successful
     const balance = await getBalance(network, networkType, toAddress);

@@ -4,13 +4,13 @@ const blockchainInfo = require('blockchain.info');
 const { networks } = require('../config');
 const { abi } = require('../ABI');
 
-module.exports.getBalance = async (network, networkType, publicKey, tokenAddress) => {
-  if (!networks[network]) {
-    throw new Error(`Network ${network} not supported`);
+module.exports.getBalance = async (blockchain, networkType, publicKey, tokenAddress) => {
+  if (!networks[blockchain]) {
+    throw new Error(`Blockchain ${blockchain} not supported`);
   }
 
-  if (network === 'ethereum' || network === 'binanceSmartChain') {
-    const providerUrl = networks[network][networkType];
+  if (blockchain === 'ethereum' || blockchain === 'binanceSmartChain') {
+    const providerUrl = networks[blockchain][networkType];
     const web3 = new Web3(providerUrl);
 
     if (!tokenAddress) {
@@ -23,13 +23,9 @@ module.exports.getBalance = async (network, networkType, publicKey, tokenAddress
     }
   }
 
-  if (network === 'bitcoin') {
+  if (blockchain === 'bitcoin') {
     const client = new blockchainInfo.MyWallet(networkType === 'testnet');
     const balance = await client.getBalance(publicKey);
     return Number(balance / 1e8);
   }
-
-  throw new Error(`Network ${network} not supported`);
 }
-
-module.exports = { getBalance };

@@ -50,12 +50,12 @@ module.exports.sendBTCTransaction = async (networkType, fromAddress, privateKey,
 }
 
 // handle sending ETH / BNB 
-module.exports.sendBEP20ERC20Transaction = async (network, networkType, privateKey, fromAddress, toAddress, amount, tokenAddress) => {
-  if (!networks[network]) {
-    throw new Error(`Network ${network} not supported`);
+module.exports.sendBEP20ERC20Transaction = async (blockchain, networkType, privateKey, fromAddress, toAddress, amount, tokenAddress) => {
+  if (!networks[blockchain]) {
+    throw new Error(`Network ${blockchain} not supported`);
   }
 
-  const providerUrl = networks[network][networkType];
+  const providerUrl = networks[blockchain][networkType];
   const web3 = new Web3(providerUrl);
   web3.eth.accounts.privateKeyToAccount(privateKey);
 
@@ -101,4 +101,9 @@ module.exports.sendBEP20ERC20Transaction = async (network, networkType, privateK
   // Broadcast the transaction to the network
   const txReceipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
   return txReceipt.transactionHash;
+}
+
+module.exports.sendTransaction = async (blockchain, networkType, privateKey, fromAddress, toAddress, amount, tokenAddress) => {
+  if(blockchain === 'bitcoin') this.sendBTCTransaction(networkType, privateKey, fromAddress, toAddress, amount);
+  else this.sendBEP20ERC20Transaction(blockchain, networkType, privateKey, fromAddress, toAddress, amount, tokenAddress);
 }
