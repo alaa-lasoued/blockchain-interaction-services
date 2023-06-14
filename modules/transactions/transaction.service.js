@@ -24,16 +24,12 @@ module.exports.sendBTCTransaction = async (networkType, fromAddress, privateKey,
     }
   }
 
-  if (totalValue < amountSat) {
-    throw new Error('Insufficient funds');
-  }
-
+  if (totalValue < amountSat)  throw new Error('Insufficient funds');
+  
   txb.addOutput(toAddress, amountSat);
-
   const change = totalValue - amountSat;
-  if (change > 0) {
-    txb.addOutput(fromAddress, change);
-  }
+
+  if (change > 0) txb.addOutput(fromAddress, change);
 
   for (let i = 0; i < unspentTxs.length; i++) {
     txb.sign({

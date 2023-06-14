@@ -1,58 +1,32 @@
 
 const Web3 = require('web3');
-const bip39 = require('bip39');
-const bitcoin = require('bitcoinjs-lib');
 const { networks } = require('../../config');
+const bitcore = require('bitcore-lib');
 
-// create a new Bitcoin wallet and return the private key and public key
-module.exports.createBitcoinWallet = (network) => {
-  try {
-    // Define the Bitcoin network and network URL based on the specified network
-    let bitcoinNetwork, networkUrl;
-    switch (network) {
-      case 'mainnet':
-        bitcoinNetwork = bitcoin.networks.bitcoin;
-        networkUrl = 'https://blockstream.info/api';
-        break;
-      case 'testnet':
-        bitcoinNetwork = bitcoin.networks.testnet;
-        networkUrl = 'https://blockstream.info/testnet/api';
-        break;
-      default:
-        throw new Error(`Unsupported Bitcoin network: ${network}`);
-    }
+function createBitcoinWallet(network) {
+  let _network = network === 'livenet' ? 'mainnet' : network;
+  const privateKey = new bitcore.PrivateKey(_network);
+  const publicKey = privateKey.toPublicKey();
+  const address = publicKey.toAddress(network);
 
-    // Generate a new 12-word mnemonic phrase for the wallet
-    const mnemonic = bip39.generateMnemonic();
-
-    // Derive the seed from the mnemonic phrase
-    const seed = bip39.mnemonicToSeedSync(mnemonic);
-
-    // Derive the Bitcoin address and private key from the seed
-    const node = bitcoin.bip32.fromSeed(seed, bitcoinNetwork);
-    const { address, privateKey, publicKey } = bitcoin.payments.p2pkh({
-      pubkey: node.publicKey,
-      network: bitcoinNetwork,
-    });
-
-    return { privateKey: privateKey.toString('hex'), publicKey: publicKey.toString('hex') };
-  } catch (err) {
-    console.error(err);
-  }
-};
+  return {
+    privateKey: privateKey.toString(),
+    publicKey: address.toString(),
+  };
+}
 
 // create a new wallet on a specified blockchain network, and return the private and public key
 module.exports.createWallet = async (blockchain, network) => {
   try {
     // handle missing or invalid function arguments
-    if (!blockchain) {
-      let errorMessage = "'Blockchain' argument is missing it should be ";
-      let chains = Object.keys(networks);
+    if (!blockchain || !networks[blockchain]) {
+      let errorMessage = "Blockchain is invalid it should be ";
+      const chains = Object.keys(networks);
       chains.forEach(key => { chains[chains.length - 1] === key ? errorMessage += key : errorMessage += key + " || " });
       throw new Error(errorMessage);
     }
 
-    if (!network || !networks[blockchain][network]) throw new Error("Network argument in invalid");
+    if (!network || !networks[blockchain][network]) throw new Error("Network is invalid");
 
     // Define the network URL and chain ID for the specified blockchain and network
     let networkUrl, chainId;
@@ -96,7 +70,7 @@ module.exports.createWallet = async (blockchain, network) => {
         break;
       case 'bitcoin': {
         // Generate a new wallet on to the Bitcoin network
-        const Keys = this.createBitcoinWallet(network);
+        const Keys = createBitcoinWallet(network);
         return Keys;
       }
       default:

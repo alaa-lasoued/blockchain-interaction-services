@@ -1,13 +1,19 @@
 {
-  "name": "code-snippet",
+  "name": "blockchain-service",
   "version": "1.0.0",
   "description": "",
   "main": "config.js",
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.3",
+    "bcrypt": "^5.1.0",
     "bip39": "^3.1.0",
+    "bitcoin-address": "^0.3.0",
     "bitcoinjs-lib": "^6.1.0",
+    "bitcoinjs-lib-zcash": "^3.6.1",
+    "bitcore-explorers": "^1.0.1",
+    "bitcore-lib": "^10.0.5",
     "blockchain.info": "^2.12.1",
+    "dotenv": "^16.1.4",
     "ethereumjs-tx": "^2.1.2",
     "ethers": "^6.3.0",
     "web3": "^1.9.0"
@@ -19,7 +25,7 @@
   "scripts": {
     "lint": "eslint **/*.js",
     "lint:fix": "eslint --fix --config .eslintrc.json **/*.js",
-    "tests": "npx jest"
+    "test": "npx jest"
   },
   "keywords": [],
   "author": "",

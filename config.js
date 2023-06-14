@@ -1,9 +1,9 @@
 const networks = {
   ethereum: {
     token:'ETH',
-    mainnet: 'https://mainnet.infura.io/v3/your-infura-api-key',
-    rinkeby: 'https://rinkeby.infura.io/v3/your-infura-api-key',
-    ropsten: 'https://ropsten.infura.io/v3/your-infura-api-key',
+    mainnet: 'https://mainnet.infura.io/v3/fcdbc520aa5db90d36182609ab03816b3322881',
+    rinkeby: 'https://rinkeby.infura.io/v3/fcdbc520aa5db90d36182609ab03816b3322881',
+    ropsten: 'https://ropsten.infura.io/v3/fcdbc520aa5db90d36182609ab03816b3322881',
   },
   binanceSmartChain: {
     token:'BNB',
@@ -13,8 +13,8 @@ const networks = {
   },
   bitcoin: {
     token:'BTC',
-    mainnet: 'https://blockchain.info/',
-    testnet: 'https://testnet.blockchain.info/',
+    mainnet: 'mainnet',
+    testnet: 'testnet',
   },
 };
 
